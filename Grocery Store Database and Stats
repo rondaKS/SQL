@@ -1,4 +1,4 @@
-CREATE TABLE clothing (id INTEGER PRIMARY KEY, clothing TEXT, price INTEGER, inventory INTEGER, color TEXT);
+CREATE TABLE clothing (id INTEGER PRIMARY KEY, item TEXT, price INTEGER, inventory INTEGER, color TEXT);
 
 INSERT INTO clothing VALUES
 (1, "T-shirt", 1, 5, "blue"),
@@ -17,8 +17,19 @@ INSERT INTO clothing VALUES
 (14, "shirts", 9, 1, "blue"), 
 (15, "shoes", 2, 1, "black");
 
-select * from clothing order by price;
+--display the database ordered by price
+SELECT * FROM clothing
+ ORDER BY price DESC;
 
-select sum(price) from clothing;
+--what is the total inventory for all clothing items?
+SELECT item, COUNT(inventory)
+  FROM clothing
+ GROUP BY item;
+ 
+--what items do we need to reorder with inventory levels less than 5?
+SELECT item, inventory
+  FROM clothing
+ WHERE inventory < 5
+ ORDER BY inventory DESC;
 
 
