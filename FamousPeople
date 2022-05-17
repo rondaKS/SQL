@@ -12,7 +12,8 @@ VALUES ("Kirk", "Douglas", 1916),
 ("Nicole", "Eggert", 1972),
 ("Uma", "Thurman", 1970),
 ("Jessica", "Biel", 1982),
-("Maya", "Angelou", 1928);
+("Maya", "Angelou", 1928),
+("Sam", "Rockwell", 1968);
 
 CREATE TABLE performances (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, year INTEGER, type_id INTEGER, actor_id INTEGER);
 
@@ -20,13 +21,19 @@ INSERT INTO performances(title, year, type_id,actor_id)
 VALUES ("The Strange Love of Martha Ivers", 1946,1,1),
 ("The Room", 2003,1,2),
 ("Homeless in America",2004,1,2),
+("The Neighbors", 2015,2,2),
 ("Charles in Charge",1987,2,3),
 ("Baywatch", 1992, 2, 3),
 ("Dangerous Liaisons",1988,1,4), 
 ("Pulp Fiction", 1994,1,4),
+("Kill Bill: Vol 1",2003,1,4),
+("Kill Bill: Vol 2",2004,1,4),
 ("7th Heaven", 1996, 2,5), 
 ("The Sinner", 2017, 2,5),
-("I Know Why the Caged Bird Sings",1969,1,6); 
+("I Know Why the Caged Bird Sings",1969,1,6),
+("Lawn Dogs", 1997,1,7),
+("Confessions of a Dangerous Mind", 2002,1,7),
+("Iron Man 2", 2010,1,7); 
 
 CREATE TABLE performance_types (id INTEGER PRIMARY KEY AUTOINCREMENT, description TEXT);
 
@@ -67,7 +74,8 @@ VALUES (1,1),
 (6,1),
 (6,6),
 (6,7),
-(6,9);
+(6,9),
+(7,1);
 
 --List of all actors performance and performance type sorted by actor last name.
 
