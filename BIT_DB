@@ -1,0 +1,42 @@
+Database with 21,759 customers placing 9,723 orders in January and 12,036 in February, other tables include March through May sales.
+
+SELECT Count(*) FROM Customers;
+
+--1. How many orders were placed in January? 9723, 12036
+SELECT count(orderID) FROM BIT_DB.JanSales;
+SELECT count(orderID) FROM BIT_DB.FebSales;
+
+--2. How amany of those orders were for an iPhone? 379
+SELECT count(*) FROM BIT_DB.JanSales
+ WHERE product = 'iPhone';
+ 
+--3. Select the customer account numbers for all the orders that were placed in February. 
+--Show how many orders were made in February per customer account number. 
+SELECT DISTINCT acctnum, count(order_id) AS number_of_orders
+  FROM BIT_DB.customers
+  JOIN BIT_DB.FebSales
+    ON FebSales.orderID = customers.order_id
+ GROUP BY acctnum;
+ 
+--4. Which product was the cheapest one sold in January, and what was the price? 4pk AAA batteries at $2.99 
+SELECT DISTINCT Product, min(price) FROM BIT_DB.JanSales;
+
+--5. What is the total revenue for each product sold in January 
+SELECT Product,(quantity*price) AS Revenue
+FROM BIT_DB.JanSales
+ GROUP BY Product;
+ 
+--6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, 
+-- how many of each were sold, and what was the total revenue?
+SELECT Product, Quantity, Price, (price*quantity) AS Revenue
+  FROM FebSales
+ WHERE location = '548 Lincoln St, Seattle, WA 98101';
+
+--7. How many customers ordered more than 2 products at a time in February, 
+--and what was the average amount spent for those customers? 
+SELECT DISTINCT acctnum, count(order_id) AS number_of_orders, AVG(price*quantity) AS Average_Revenue
+  FROM BIT_DB.customers 
+  LEFT JOIN BIT_DB.FebSales
+    ON FebSales.orderID = customers.order_id
+ GROUP BY acctnum
+HAVING number_of_orders >2;
