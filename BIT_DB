@@ -19,8 +19,7 @@ SELECT DISTINCT acctnum, count(order_id) AS number_of_orders
  GROUP BY acctnum;
  
 --4. Which product was the cheapest one sold in January, and what was the price? 4pk AAA batteries at $2.99 
-SELECT DISTINCT Product, min(price) FROM BIT_DB.JanSales
- GROUP BY Product;
+SELECT DISTINCT Product, min(price) FROM BIT_DB.JanSales;
 
 --5. What is the total revenue for each product sold in January 
 SELECT Product,(quantity*price) AS Revenue
