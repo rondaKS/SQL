@@ -40,3 +40,9 @@ SELECT DISTINCT acctnum, count(order_id) AS number_of_orders, AVG(price*quantity
     ON FebSales.orderID = customers.order_id
  GROUP BY acctnum
 HAVING number_of_orders >2;
+
+--8. List all the products sold in Los Angeles in February, and include how many of each were sold. 
+SELECT Product, Location, sum(Quantity) AS Total_Sold
+  FROM FebSales
+ WHERE location like '%los angeles%'
+ GROUP BY Product;
