@@ -29,4 +29,11 @@ LIMIT 5;
 SELECT min(Popularity), max(Popularity), avg(Popularity)
   FROM Spotifydata;
   
-  
+--Rank popularity as below average, average, or above average, count number of songs that fit new ranking.  
+  SELECT Count(*) AS Number, CASE 
+       WHEN Popularity < 80 THEN 'Below Average'
+       WHEN Popularity < 87 THEN 'Average'
+       ELSE 'Above Average'
+   END AS popularity_place
+  FROM BIT_DB.Spotifydata
+ GROUP BY popularity_place;
