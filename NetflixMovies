@@ -1,0 +1,48 @@
+--In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+
+-- Join tables on show id, display title, release year, rating and director
+SELECT 
+titles.show_id
+,titles.title
+,titles.release_year
+,titles.rating
+,people.director 
+  FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+  LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_people" people
+    ON titles.show_id = people.show_id;
+
+--Count number of movie types, 6131
+SELECT COUNT(*)
+  FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+ WHERE titles.type = 'Movie';
+
+ --List all the movies and tv shows in alphabetical order
+ SELECT titles.title, titles.type, titles.release_year
+   FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+   LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_people" people
+     ON titles.show_id = people.show_id
+  ORDER BY titles.title;
+
+  --List all the movies and tv shows in alphabetical order, TV Shows first and then movies.
+ SELECT titles.title, titles.type, titles.release_year
+   FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+   LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_people" people
+     ON titles.show_id = people.show_id
+  ORDER BY titles.type desc, titles.title;
+
+ --Who was the Director for the movie Bright Star? Jane Campion
+ SELECT titles.title, people.director
+   FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+   LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_people" people
+     ON titles.show_id = people.show_id
+  WHERE titles.title = 'Bright Star';
+
+ --What is the oldest movie in the database and what year was it made? Pioneers: First Women Filmmakers* 1925
+ SELECT titles.title, titles.release_year
+   FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+  ORDER BY titles.release_year 
+  LIMIT 1;
+  
+ --When was the most recent batch of tv shows and/or movies added to the database? 2021-09-25
+ SELECT MAX(DATE(date_added))
+   FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles;
