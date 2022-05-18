@@ -1,4 +1,5 @@
-SQL Mystery
+--SQL Mystery
+--https://mystery.knightlab.com/
 
 --Find witness that lives at last house on Northwestern Dr. 
 SELECT id, name, max(address_number), address_street_name FROM person
