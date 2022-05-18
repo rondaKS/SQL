@@ -1,0 +1,69 @@
+SQL Mystery
+
+--Find witness that lives at last house on Northwestern Dr. 
+SELECT id, name, max(address_number), address_street_name FROM person
+ WHERE address_street_name like '%northwestern%';
+
+
+--Find witness named Annabel on Franklin Ave
+SELECT id, name, address_number, address_street_name FROM person
+ WHERE address_street_name like '%franklin%' AND name like 'Annabel%';
+
+--Review witness interview transcripts. 
+SELECT * FROM interview
+ WHERE person_id = 14887 OR person_id = 16371;
+
+--What time was Annabel at the Gym on Jan 9th? 1600 to 1700, she has a gold membership 90081
+SELECT * FROM get_fit_now_member
+  JOIN get_fit_now_check_in AS Check_In
+    ON membership_id = id
+ WHERE person_id = 16371
+
+--Who else was at the gym the same time Annabel was at the gym on Jan 9th between 1600 and 1700?
+--Joe Germuska, person_id = 28819, gym ID matches Morty’s statement 48Z7A, Joe has a gold membership.
+SELECT * FROM get_fit_now_member
+  JOIN get_fit_now_check_in AS Check_In
+    ON membership_id = id
+ WHERE check_in_date = '20180109'
+ ORDER BY check_in_time DESC;
+
+--Who else has a gold membership with a plate number that includes H42W?
+--Jeremy Bowers person_id  = 67318
+SELECT person.id, person.name, membership_status, plate_number
+  FROM person
+  JOIN get_fit_now_member
+    ON person.id = get_fit_now_member.person_id
+  JOIN drivers_license
+    ON person.license_id = drivers_license.id
+ WHERE plate_number like '%H42W%';
+
+--Any social media posts from either Joe Germuska or Jeremy Bowers?
+-- Jeremey checked into the The Funky Grooves Tour on 20180115, event_id 4719 – Is this an alibi? 
+SELECT * FROM facebook_event_checkin
+ WHERE person_id = 28819 OR person_id = 67318;
+
+--Annual income of either Joe Germuska or Jeremy Bowers? Jeremy $10,500, no record for Joe.
+SELECT * FROM person
+  LEFT JOIN income
+    ON person.ssn = income.ssn
+ WHERE person.id = 28819 OR person.id = 67318;
+
+--Any interviews from either Joe Germuska or Jeremy Bowers?
+--Statement from Jeremy Bowers
+SELECT * FROM interview
+ WHERE person_id = 28819 OR person_id = 67318;
+
+--Find the female that drives a Tesla Model S that attended the SQL Symphony Concert 3x in 2017.
+--Miranda Priestly person_id 99716
+SELECT * FROM drivers_license
+  JOIN person
+    ON person.license_id = drivers_license.id
+  JOIN facebook_event_checkin 
+    ON person.id = facebook_event_checkin.person_id
+ WHERE car_make = 'Tesla' 
+   AND car_model = 'Model S' 
+   AND hair_color = 'red'
+   AND gender = 'female';
+
+--How much income does Miranda make? $310,000
+SELECT * FROM income
