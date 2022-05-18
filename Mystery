@@ -67,3 +67,6 @@ SELECT * FROM drivers_license
 
 --How much income does Miranda make? $310,000
 SELECT * FROM income
+  JOIN person
+    ON person.ssn = income.ssn 
+ WHERE income.ssn = 987756388;
