@@ -39,7 +39,7 @@ SELECT person.id, person.name, membership_status, plate_number
  WHERE plate_number like '%H42W%';
 
 --Any social media posts from either Joe Germuska or Jeremy Bowers?
--- Jeremey checked into the The Funky Grooves Tour on 20180115, event_id 4719 – Is this an alibi? 
+-- Jeremey checked into the The Funky Grooves Tour on 20180115, event_id 4719
 SELECT * FROM facebook_event_checkin
  WHERE person_id = 28819 OR person_id = 67318;
 
