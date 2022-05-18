@@ -5,7 +5,6 @@
 SELECT id, name, max(address_number), address_street_name FROM person
  WHERE address_street_name like '%northwestern%';
 
-
 --Find witness named Annabel on Franklin Ave
 SELECT id, name, address_number, address_street_name FROM person
  WHERE address_street_name like '%franklin%' AND name like 'Annabel%';
